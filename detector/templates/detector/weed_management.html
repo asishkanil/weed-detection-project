@@ -1,0 +1,417 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f3d2b">
+    <title>Weed Knowledge & Management | GREEN GUARD</title>
+    <link rel="stylesheet" href="{% static 'detector/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" href="{% url 'home' %}">
+        <span class="brand-icon">✿</span>
+        <span>GREEN <strong>GUARD</strong></span>
+    </a>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'home' %}#detector">Weed Detection</a>
+        <a href="{% url 'weed_management' %}" class="active">Weed Knowledge</a>
+    </div>
+
+    <a href="{% url 'home' %}#detector" class="nav-button">Detect Weeds ↗</a>
+</nav>
+
+<header class="page-hero">
+    <span class="eyebrow">Grow knowledge. Protect crops.</span>
+    <h1>Understanding <span>Weeds</span></h1>
+    <p>
+        Learn how weeds affect crops, recognize common weed groups,
+        and explore practical ways to manage them.
+    </p>
+    <a href="#weed-types" class="primary-button">Explore Weed Knowledge ↓</a>
+</header>
+
+<main class="knowledge-main">
+
+    <section class="knowledge-section" id="weed-types">
+        <div class="knowledge-heading">
+            <span class="eyebrow">Know what grows</span>
+            <h2>Understanding Weeds</h2>
+            <p>
+                A weed is any plant growing where it is not wanted.
+                Weeds compete with crops for light, water, nutrients and
+                space, and can also shelter pests and diseases.
+            </p>
+        </div>
+
+        <div class="knowledge-grid three-columns">
+            <article class="knowledge-card">
+                <div class="knowledge-icon">🌿</div>
+                <h3>Broadleaf Weeds</h3>
+                <p>
+                    Wide leaves with net-like veins. They can often be
+                    distinguished from narrow-leaved crops such as cereals.
+                </p>
+                <div class="knowledge-tag">Wide leaves</div>
+            </article>
+
+            <article class="knowledge-card">
+                <div class="knowledge-icon">🌾</div>
+                <h3>Grass Weeds</h3>
+                <p>
+                    Narrow, blade-like leaves with parallel veins.
+                    Young grass weeds can look very similar to cereal crops.
+                </p>
+                <div class="knowledge-tag">Narrow leaves</div>
+            </article>
+
+            <article class="knowledge-card">
+                <div class="knowledge-icon">🌱</div>
+                <h3>Sedges</h3>
+                <p>
+                    Grass-like plants that often have triangular stems.
+                    They are common in wet or poorly drained soils.
+                </p>
+                <div class="knowledge-tag">Often found in wet soil</div>
+            </article>
+        </div>
+
+        <p class="knowledge-note">
+            <strong>Remember:</strong> These are general characteristics.
+            Confirm plant identity before removing it, especially when
+            weeds resemble the crop.
+        </p>
+    </section>
+
+    <section class="yield-section">
+        <div class="knowledge-heading">
+            <span class="eyebrow">Why early action matters</span>
+            <h2>How Weeds Reduce Yield</h2>
+            <p>Weeds compete with crops for essential resources and can interfere with healthy crop growth.</p>
+        </div>
+
+        <div class="knowledge-grid four-columns">
+            <article class="impact-card">
+                <div class="knowledge-icon">☀️</div>
+                <h3>Light</h3>
+                <p>Shading</p>
+            </article>
+            <article class="impact-card">
+                <div class="knowledge-icon">💧</div>
+                <h3>Water</h3>
+                <p>Competition</p>
+            </article>
+            <article class="impact-card">
+                <div class="knowledge-icon">🧪</div>
+                <h3>Nutrients</h3>
+                <p>Depletion</p>
+            </article>
+            <article class="impact-card">
+                <div class="knowledge-icon">🐛</div>
+                <h3>Pests</h3>
+                <p>Shelter</p>
+            </article>
+        </div>
+
+        <div class="critical-note">
+            <span>⚠️</span>
+            <div>
+                <h3>Critical Period for Weed Control</h3>
+                <p>
+                    Crops are often most sensitive to weed competition during
+                    early growth. Controlling weeds early can protect yield
+                    better than waiting until late in the season. The exact
+                    period depends on the crop and growing conditions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="knowledge-section" id="control-methods">
+        <div class="knowledge-heading">
+            <span class="eyebrow">Practical field guidance</span>
+            <h2>🛠️ Weed Control Methods</h2>
+            <p>
+                Different situations call for different approaches.
+                Integrated weed management combines suitable methods
+                rather than relying on just one.
+            </p>
+        </div>
+
+        <div class="method-tabs" role="group" aria-label="Weed control methods">
+            <button type="button" class="method-tab active" data-method="manual">🧑‍🌾 Manual</button>
+            <button type="button" class="method-tab" data-method="mechanical">🚜 Mechanical</button>
+            <button type="button" class="method-tab" data-method="mulching">🍂 Mulching</button>
+            <button type="button" class="method-tab" data-method="cultural">🔄 Cultural</button>
+            <button type="button" class="method-tab" data-method="biological">🐞 Biological</button>
+            <button type="button" class="method-tab" data-method="chemical">🧪 Chemical</button>
+        </div>
+
+        <article class="method-detail" id="methodDetail">
+            <div class="method-detail-heading">
+                <span class="knowledge-icon" id="methodIcon">🧑‍🌾</span>
+                <h3 id="methodTitle">Manual Removal</h3>
+            </div>
+            <p id="methodDescription">
+                Hand pulling or hoeing weeds that have been correctly identified.
+            </p>
+            <ul id="methodTips">
+                <li>Best for small plots, gardens and young weeds.</li>
+                <li>Remove as much of the root as practical to reduce regrowth.</li>
+                <li>Weed after rain or irrigation, when the soil is soft.</li>
+                <li>Remove weeds before they flower and set seed.</li>
+                <li>Place removed weeds where they cannot re-root or spread seed.</li>
+            </ul>
+            <div class="method-pros-cons">
+                <p id="methodPros">✅ Pros: Low cost and precise; no herbicide needed.</p>
+                <p id="methodCons">⚠️ Cons: Labour-intensive and slow on large fields.</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="yield-section" id="calendar">
+        <div class="knowledge-heading">
+            <span class="eyebrow">Plan through the season</span>
+            <h2>📅 Weed Management Calendar</h2>
+            <p>These stages are general. Exact timing depends on the crop, region and season.</p>
+        </div>
+
+        <div class="calendar-list">
+            <article class="calendar-item">
+                <div class="calendar-icon">🌱</div>
+                <div>
+                    <span class="calendar-stage">BEFORE SOWING</span>
+                    <h3>Prepare the Field</h3>
+                    <ul>
+                        <li>Prepare a clean seedbed and remove existing weeds.</li>
+                        <li>Use certified, weed-free seed.</li>
+                        <li>Clean bunds, irrigation channels and field borders.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="calendar-item">
+                <div class="calendar-icon">🌿</div>
+                <div>
+                    <span class="calendar-stage">EARLY CROP GROWTH</span>
+                    <h3>Monitor and Act Early</h3>
+                    <ul>
+                        <li>This is often the most important time to manage competition.</li>
+                        <li>Scout every few days and remove small weeds early.</li>
+                        <li>Use inter-row tools once crop rows are established.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="calendar-item">
+                <div class="calendar-icon">🌾</div>
+                <div>
+                    <span class="calendar-stage">MID SEASON</span>
+                    <h3>Keep Monitoring</h3>
+                    <ul>
+                        <li>Look for new weed growth after rain or irrigation.</li>
+                        <li>Target affected patches where appropriate.</li>
+                        <li>Avoid damaging crop roots during control.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="calendar-item">
+                <div class="calendar-icon">🌻</div>
+                <div>
+                    <span class="calendar-stage">BEFORE HARVEST</span>
+                    <h3>Prevent Seed Spread</h3>
+                    <ul>
+                        <li>Remove weeds that are about to set seed when practical.</li>
+                        <li>Clean harvesting machines to avoid spreading weed seeds.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="calendar-item">
+                <div class="calendar-icon">🍂</div>
+                <div>
+                    <span class="calendar-stage">AFTER HARVEST</span>
+                    <h3>Prepare for Next Season</h3>
+                    <ul>
+                        <li>Record where weeds were most troublesome.</li>
+                        <li>Plan suitable crop rotation or cover crops.</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="knowledge-section" id="dos-donts">
+        <div class="knowledge-heading">
+            <span class="eyebrow">Responsible weed management</span>
+            <h2>✅ Do's and Don'ts</h2>
+        </div>
+
+        <div class="knowledge-grid two-columns">
+            <article class="practice-card do-card">
+                <h3>✅ Do</h3>
+                <ul>
+                    <li>Walk the field and confirm each plant before removing it.</li>
+                    <li>Control weeds early, before they flower.</li>
+                    <li>Combine more than one suitable control method.</li>
+                    <li>Keep records of detections and management actions.</li>
+                    <li>Clean tools and machines between fields.</li>
+                </ul>
+            </article>
+
+            <article class="practice-card dont-card">
+                <h3>❌ Don't</h3>
+                <ul>
+                    <li>Remove a plant based only on an AI prediction.</li>
+                    <li>Allow weeds to set seed when they can be safely controlled.</li>
+                    <li>Use a herbicide not approved for your crop and situation.</li>
+                    <li>Exceed the product label dose or ignore safety directions.</li>
+                    <li>Spray in strong wind or before heavy rain.</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="knowledge-cta">
+        <span class="knowledge-icon">🔍</span>
+        <h2>Ready to Analyze a Field Image?</h2>
+        <p>Use GREEN GUARD to see AI predictions, then verify the plants before taking action.</p>
+        <a href="{% url 'home' %}#detector" class="primary-button">Start Weed Detection →</a>
+    </section>
+
+</main>
+
+<footer>
+    <a class="brand footer-brand" href="{% url 'home' %}">
+        <span class="brand-icon">✿</span>
+        <span>GREEN <strong>GUARD</strong></span>
+    </a>
+    <p>AI-powered crop image analysis · Built for smarter agriculture</p>
+</footer>
+
+<script>
+    const methods = {
+        manual: {
+            icon: "🧑‍🌾",
+            title: "Manual Removal",
+            description: "Hand pulling or hoeing weeds that have been correctly identified.",
+            tips: [
+                "Best for small plots, gardens and young weeds.",
+                "Remove as much of the root as practical to reduce regrowth.",
+                "Weed after rain or irrigation, when the soil is soft.",
+                "Remove weeds before they flower and set seed.",
+                "Place removed weeds where they cannot re-root or spread seed."
+            ],
+            pros: "✅ Pros: Low cost and precise; no herbicide needed.",
+            cons: "⚠️ Cons: Labour-intensive and slow on large fields."
+        },
+        mechanical: {
+            icon: "🚜",
+            title: "Mechanical Control",
+            description: "Use cultivation or weeding tools between crop rows.",
+            tips: [
+                "Hand hoes, wheel hoes and inter-row cultivators suit row crops.",
+                "Work when weeds are small and the soil is not waterlogged.",
+                "Keep tools shallow near crop roots to avoid damage.",
+                "Clean equipment between fields to avoid spreading weed seeds."
+            ],
+            pros: "✅ Pros: Can control many weeds without herbicides.",
+            cons: "⚠️ Cons: May disturb soil or damage crops if poorly timed."
+        },
+        mulching: {
+            icon: "🍂",
+            title: "Mulching",
+            description: "Cover bare soil to block light from reaching weed seeds and seedlings.",
+            tips: [
+                "Use clean straw or dry leaves as organic mulch.",
+                "Plastic mulch is used in some vegetable crops.",
+                "Apply after weeding and leave a small gap around crop stems.",
+                "Choose weed-seed-free materials.",
+                "Manage plastic mulch properly after use."
+            ],
+            pros: "✅ Pros: Can suppress weeds and conserve soil moisture.",
+            cons: "⚠️ Cons: Material, labour and disposal costs may apply."
+        },
+        cultural: {
+            icon: "🔄",
+            title: "Cultural Practices",
+            description: "Make the field work against weeds through good crop management.",
+            tips: [
+                "Crop rotation can disrupt the life cycle of weeds that favour one crop.",
+                "Suitable crop spacing can help the crop canopy shade the soil.",
+                "Use certified seed free of weed seeds.",
+                "Timely sowing and vigorous crop establishment improve competition.",
+                "Keep bunds, channels and field borders clean."
+            ],
+            pros: "✅ Pros: Supports long-term, integrated weed management.",
+            cons: "⚠️ Cons: Requires planning and may not control every weed alone."
+        },
+        biological: {
+            icon: "🐞",
+            title: "Biological Control",
+            description: "Use living organisms or natural processes to suppress specific weeds.",
+            tips: [
+                "Cover crops and smother crops can suppress weed growth.",
+                "Some insects or pathogens target particular weeds in certain regions.",
+                "Grazing animals may be useful in suitable systems.",
+                "Choose approaches appropriate for the crop and local ecosystem.",
+                "Ask your local agricultural office which options are approved locally."
+            ],
+            pros: "✅ Pros: Can provide targeted, longer-term suppression.",
+            cons: "⚠️ Cons: Results may be slow and highly species-specific."
+        },
+        chemical: {
+            icon: "🧪",
+            title: "Chemical Control (Herbicides)",
+            description: "Herbicides can control weeds, but must be selected and applied carefully.",
+            tips: [
+                "Choose a product approved for your crop and target weed.",
+                "Follow the label for dose, timing, protective equipment and safety.",
+                "Never use more than the label allows.",
+                "Avoid spraying in strong wind or before heavy rain.",
+                "Rotate suitable control methods to reduce herbicide resistance risk."
+            ],
+            pros: "✅ Pros: Can be efficient when the product and timing are appropriate.",
+            cons: "⚠️ Cons: Misuse can damage crops, harm people or the environment, and promote resistance."
+        }
+    };
+
+    const methodButtons = document.querySelectorAll(".method-tab");
+
+    methodButtons.forEach(function (button) {
+        button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
+
+        button.addEventListener("click", function () {
+            const method = methods[button.dataset.method];
+            if (!method) return;
+
+            methodButtons.forEach(function (item) {
+                item.classList.toggle("active", item === button);
+                item.setAttribute("aria-pressed", item === button ? "true" : "false");
+            });
+
+            document.getElementById("methodIcon").textContent = method.icon;
+            document.getElementById("methodTitle").textContent = method.title;
+            document.getElementById("methodDescription").textContent = method.description;
+            document.getElementById("methodPros").textContent = method.pros;
+            document.getElementById("methodCons").textContent = method.cons;
+
+            const list = document.getElementById("methodTips");
+            list.replaceChildren();
+
+            method.tips.forEach(function (tip) {
+                const li = document.createElement("li");
+                li.textContent = tip;
+                list.appendChild(li);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

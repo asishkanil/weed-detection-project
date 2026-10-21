@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f3d2b">
+    <title>Detection Results | GREEN GUARD</title>
+    <link rel="stylesheet" href="{% static 'detector/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="brand" href="{% url 'home' %}">
+            <span class="brand-icon">✿</span>
+            <span>GREEN <strong>GUARD</strong></span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'home' %}#detector" class="active">Weed Detection</a>
+            <a href="{% url 'weed_management' %}">Weed Knowledge</a>
+        </div>
+
+        <a href="{% url 'home' %}#detector" class="nav-button">New Detection +</a>
+    </nav>
+
+    <header class="page-hero">
+        <span class="eyebrow">Green Guard AI analysis</span>
+        <h1>Detection <span>Results</span></h1>
+        <p>Review the objects detected in your agricultural image.</p>
+    </header>
+
+    <main class="results-section">
+        <div class="workspace results-workspace">
+
+            <section class="results-panel">
+                <div class="panel-heading">
+                    <div class="heading-icon">⌁</div>
+                    <div>
+                        <h3>Analyzed Field Image</h3>
+                        <p>Predicted bounding boxes from YOLOv8</p>
+                    </div>
+                </div>
+
+                <div class="result-image-wrap">
+                    <img
+                        src="data:image/jpeg;base64,{{ result.image }}"
+                        alt="Agricultural image with predicted bounding boxes"
+                        class="result-page-image"
+                    >
+                </div>
+
+                <div class="result-actions">
+                    <a
+                        href="data:image/jpeg;base64,{{ result.image }}"
+                        download="green-guard-detection.jpg"
+                        class="download-button"
+                    >
+                        ↓ Download Annotated Image
+                    </a>
+
+                    <a href="{% url 'home' %}#detector" class="reset-button">
+                        ↺ Analyze Another Image
+                    </a>
+                </div>
+            </section>
+
+            <section class="results-panel">
+                <div class="panel-heading">
+                    <div class="heading-icon">✓</div>
+                    <div>
+                        <h3>Analysis Summary</h3>
+                        <p>Detection statistics and confidence scores</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span>Total Objects</span>
+                        <strong>{{ result.count }}</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Weeds Detected</span>
+                        <strong>{{ result.weed_count }}</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Wheat Detected</span>
+                        <strong>{{ result.wheat_count }}</strong>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>Confidence Threshold</span>
+                        <strong>{{ result.confidence_threshold }}%</strong>
+                    </div>
+                </div>
+
+                <div class="detection-details">
+                    <h4>Individual Predictions</h4>
+
+                    {% if result.detections %}
+                        <ul id="detectionList">
+                            {% for item in result.detections %}
+                                <li>
+                                    <span class="prediction-name">
+                                        {% if item.class_name == "weed" %}
+                                            🌿
+                                        {% elif item.class_name == "wheat" %}
+                                            🌾
+                                        {% else %}
+                                            🌱
+                                        {% endif %}
+                                        {{ item.class_name|title }}
+                                    </span>
+
+                                    <strong>{{ item.confidence }}%</strong>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="empty-state compact-empty">
+                            <div class="empty-icon">⌕</div>
+                            <h3>No objects detected</h3>
+                            <p>Try another image or lower the confidence threshold on the upload page.</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <p class="result-disclaimer">
+                    AI predictions are estimates. Check plants in the field
+                    before making weed-control decisions.
+                </p>
+            </section>
+        </div>
+
+        <div class="management-cta">
+            <h3>Want to learn more about weed control?</h3>
+            <p>Explore weed types, prevention methods and seasonal management tips.</p>
+            <a href="{% url 'weed_management' %}" class="primary-button">
+                Explore Weed Management →
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <a class="brand footer-brand" href="{% url 'home' %}">
+            <span class="brand-icon">✿</span>
+            <span>GREEN <strong>GUARD</strong></span>
+        </a>
+        <p>AI-powered crop image analysis · Built for smarter agriculture</p>
+    </footer>
+
+</body>
+</html>

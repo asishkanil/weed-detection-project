@@ -1,0 +1,12 @@
+﻿venv/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+*.sqlite3
+runs/
+wandb/
+labels_backup_before_bbox_fix/
+training_results/
+weed detection -bounding boxes-.v7i.yolov8/
+weed detection -bounding boxes-.v7i.yolov8.zip

@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f3d2b">
+    <title>GREEN GUARD | AI Weed Detection</title>
+    <link rel="stylesheet" href="{% static 'detector/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="brand" href="{% url 'home' %}">
+            <span class="brand-icon"></span>
+            <span>GREEN <strong>GUARD</strong></span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#detector">Weed Detection</a>
+            <a href="{% url 'weed_management' %}">Weed Knowledge</a>
+        </div>
+
+        <a href="#detector" class="nav-button">Get Started ↗</a>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="eyebrow">🌱 Smart Agriculture • Powered by AI</span>
+
+                <h1>Protect Your Crops.<br>
+                    <span>Detect Weeds Smarter.</span>
+                </h1>
+
+                <p>
+                    Identify weeds and wheat in agricultural images using
+                    computer vision. Upload a field image and let GREEN GUARD
+                    analyze it with AI.
+                </p>
+
+                <a href="#detector" class="primary-button">
+                    Start Detection <span>→</span>
+                </a>
+
+                <div class="hero-note">
+                    <span class="status-dot"></span>
+                    AI-powered image analysis
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-top">
+                        <span><span class="status-dot"></span> GREEN GUARD AI</span>
+                        <span class="visual-tag">YOLOv8</span>
+                    </div>
+
+                    <div class="plant-art" aria-hidden="true">
+                        <span class="sun"></span>
+                        <span class="leaf leaf-one"></span>
+                        <span class="leaf leaf-two"></span>
+                        <span class="leaf leaf-three"></span>
+                        <span class="leaf leaf-four"></span>
+                        <span class="plant-stem"></span>
+                        <span class="ground"></span>
+                    </div>
+
+                    <div class="visual-caption">
+                        <div>
+                            <strong>Smarter field analysis</strong>
+                            <p>See your crops with a new perspective.</p>
+                        </div>
+                        <span class="visual-check">✓</span>
+                    </div>
+                </div>
+                <div class="floating-label">🌿 Grow with confidence</div>
+            </div>
+        </section>
+
+        <section class="detector-section" id="detector">
+            <div class="section-heading">
+                <span class="eyebrow">Your field, analyzed</span>
+                <h2>AI Weed Detection</h2>
+                <p>Upload an image, adjust the confidence level, and run detection.</p>
+            </div>
+
+            <div class="workspace">
+                <div class="upload-panel">
+                    <div class="panel-heading">
+                        <div class="heading-icon">↑</div>
+                        <div>
+                            <h3>Upload Field Image</h3>
+                            <p>Choose an image for analysis</p>
+                        </div>
+                    </div>
+
+                    <form id="uploadForm" method="post" action="{% url 'detect' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <label class="drop-zone" for="imageInput" id="dropZone">
+                            <span class="upload-icon">↑</span>
+                            <strong>Choose an image to analyze</strong>
+                            <span>Click here to browse your files</span>
+                            <small>JPG, PNG or WebP · Maximum 10 MB</small>
+
+                            <input
+                                type="file"
+                                id="imageInput"
+                                name="image"
+                                accept="image/jpeg,image/png,image/webp"
+                                required
+                            >
+                        </label>
+
+                        <div id="previewContainer" class="preview-container" style="display:none;">
+                            <span class="mini-label">SELECTED IMAGE</span>
+                            <img id="imagePreview" alt="Selected field image preview">
+                        </div>
+
+                        
+
+                           
+
+                           
+
+                        <button type="submit" class="primary-button full-button" id="detectButton">
+                            <span>✦</span> Detect Objects
+                        </button>
+
+                        <button type="button" class="reset-button full-button" id="resetButton">
+                            ↺ Reset and Upload Another Image
+                        </button>
+
+                        <p id="message" class="message" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+
+                <div class="results-panel">
+                    <div class="panel-heading">
+                        <div class="heading-icon">⌁</div>
+                        <div>
+                            <h3>Detection Results</h3>
+                            <p>Your AI analysis will appear here</p>
+                        </div>
+                    </div>
+
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-icon">⌕</div>
+                        <h3>Ready to analyze</h3>
+                        <p>Your detected image and object details will appear here after you run detection.</p>
+                    </div>
+
+                    <div id="resultBox" style="display:none;">
+                        <div class="result-summary">
+                            <div>
+                                <span class="summary-label">OBJECTS DETECTED</span>
+                                <strong id="detectionCount">0</strong>
+                            </div>
+                            <span class="success-tag">✓ Analysis complete</span>
+                        </div>
+
+                        <div class="result-image-wrap">
+                            <img id="resultImage" alt="Field image with predicted bounding boxes">
+                        </div>
+
+                        <div class="result-actions">
+                            <a id="downloadButton" class="download-button"
+                               href="#" download="green-guard-detection.jpg">
+                                ↓ Download Result
+                            </a>
+                        </div>
+
+                        <div class="detection-details">
+                            <h4>Detected Objects</h4>
+                            <ul id="detectionList"></ul>
+                        </div>
+
+                        <p class="result-disclaimer">
+                            Predictions are AI estimates and may not identify
+                            every weed correctly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <span class="eyebrow">Technology for better farming</span>
+            <h2>See More. Grow Smarter.</h2>
+            <p>
+                GREEN GUARD uses a YOLOv8 computer vision model to identify
+                objects in crop images and highlight its predictions with
+                bounding boxes.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span>⌕</span>
+                    <h3>Visual Detection</h3>
+                    <p>View predicted objects directly on your uploaded image.</p>
+                </div>
+                <div class="feature-card">
+                    <span>⚙</span>
+                    <h3>Adjustable Confidence</h3>
+                    <p>Choose how confident a prediction must be to appear.</p>
+                </div>
+                <div class="feature-card">
+                    <span>↓</span>
+                    <h3>Save Results</h3>
+                    <p>Download the annotated image for later reference.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a class="brand footer-brand" href="{% url 'home' %}">
+            <span class="brand-icon">✿</span>
+            <span>GREEN <strong>GUARD</strong></span>
+        </a>
+        <p>AI-powered crop image analysis · Built for smarter agriculture</p>
+    </footer>
+
+    <script>
+    const uploadForm = document.getElementById("uploadForm");
+    const dropZone = document.getElementById("dropZone");
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const previewContainer = document.getElementById("previewContainer");
+    const confidence = document.getElementById("confidence");
+    const confidenceValue = document.getElementById("confidenceValue");
+    const message = document.getElementById("message");
+    const detectButton = document.getElementById("detectButton");
+    const resetButton = document.getElementById("resetButton");
+
+    let previewUrl = null;
+
+    confidence.addEventListener("input", function () {
+        confidenceValue.textContent = confidence.value;
+    });
+
+    /* Drag and drop support */
+    ["dragenter", "dragover"].forEach(function (evt) {
+        dropZone.addEventListener(evt, function (e) {
+            e.preventDefault();
+            dropZone.classList.add("dragover");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(function (evt) {
+        dropZone.addEventListener(evt, function (e) {
+            e.preventDefault();
+            dropZone.classList.remove("dragover");
+        });
+    });
+
+    dropZone.addEventListener("drop", function (e) {
+        if (e.dataTransfer.files.length) {
+            imageInput.files = e.dataTransfer.files;
+            imageInput.dispatchEvent(new Event("change"));
+        }
+    });
+
+    imageInput.addEventListener("change", function () {
+        const file = this.files[0];
+        message.textContent = "";
+
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        }
+
+        if (!file) {
+            previewContainer.style.display = "none";
+            imagePreview.removeAttribute("src");
+            return;
+        }
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+        if (!allowedTypes.includes(file.type)) {
+            message.textContent = "Please choose a JPG, PNG or WebP image.";
+            imageInput.value = "";
+            previewContainer.style.display = "none";
+            return;
+        }
+
+        if (file.size > 10 * 1024 * 1024) {
+            message.textContent = "The image must be smaller than 10 MB.";
+            imageInput.value = "";
+            previewContainer.style.display = "none";
+            return;
+        }
+
+        previewUrl = URL.createObjectURL(file);
+        imagePreview.src = previewUrl;
+        previewContainer.style.display = "block";
+    });
+
+    /* Normal form submit: Django processes the image and shows results.html */
+    uploadForm.addEventListener("submit", function (event) {
+        if (!imageInput.files.length) {
+            event.preventDefault();
+            message.textContent = "Please choose an image first.";
+            return;
+        }
+
+        message.textContent = "Analyzing your image... Please wait.";
+        detectButton.textContent = "Analyzing...";
+        /* Don't disable the button here, or the form data may not be sent in some browsers */
+        setTimeout(function () { detectButton.disabled = true; }, 0);
+    });
+
+    resetButton.addEventListener("click", function () {
+        uploadForm.reset();
+        confidenceValue.textContent = confidence.value;
+        imageInput.value = "";
+
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        }
+
+        imagePreview.removeAttribute("src");
+        previewContainer.style.display = "none";
+        message.textContent = "";
+
+        detectButton.disabled = false;
+        detectButton.innerHTML = "<span>✦</span> Detect Objects";
+    });
+
+    /* Re-enable the button if the user comes back with the browser Back button */
+    window.addEventListener("pageshow", function () {
+        detectButton.disabled = false;
+        detectButton.innerHTML = "<span>✦</span> Detect Objects";
+        message.textContent = "";
+    });
+</script>
+</body>
+</html>
